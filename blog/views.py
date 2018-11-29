@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment, Document
 from .forms import PostForm, CommentForm, DocumentForm
@@ -11,7 +12,7 @@ def model_form_upload(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('')
+            return HttpResponseRedirect('/')
     else:
         form = DocumentForm()
     return render(request, 'blog/upload.html', {'form': form})
